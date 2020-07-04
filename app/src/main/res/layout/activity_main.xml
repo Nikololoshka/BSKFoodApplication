@@ -22,13 +22,33 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <TextView
-                android:id="@+id/address_location"
+            <LinearLayout
+                android:id="@+id/address_toolbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lobnya"
-                android:textColor="#FFFFFF"
-                android:layout_gravity="center"/>
+                android:orientation="vertical"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:text="@string/home_your_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_toolbar_arrow_drop_down"
+                    android:textColor="@color/colorToolbarAddress"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/address_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorToolbarAddress"
+                    android:layout_gravity="center"
+                    tools:text="Lobnya"/>
+
+            </LinearLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -38,7 +58,9 @@
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:background="?attr/colorPrimary"
+        app:itemTextColor="@drawable/selector_bottom_navigation_text"
+        app:itemIconTint="@drawable/selector_bottom_navigation_icon"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

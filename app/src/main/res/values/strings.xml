@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PepegaFood</string>
+    <string name="app_name" translatable="false">PepegaFood</string>
 
     <string name="nav_home">Home</string>
     <string name="nav_catalog">Catalog</string>
@@ -7,4 +7,8 @@
     <string name="nav_map">Map</string>
     <string name="nav_profile">Profile</string>
 
+    <string name="home_your_address">Your address</string>
+    <string name="address_search">Address search</string>
+    <string name="address_not_set">Address not set</string>
+    
 </resources>

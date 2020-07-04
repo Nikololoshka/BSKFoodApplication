@@ -1,19 +1,28 @@
 package com.vereshchagin.nikolay.pepegafood
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
-import androidx.appcompat.app.ActionBar
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.vereshchagin.nikolay.pepegafood.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import com.vereshchagin.nikolay.pepegafood.settings.ApplicationPreference
+import com.vereshchagin.nikolay.pepegafood.utils.CommonUtils
+import kotlinx.android.synthetic.main.activity_main.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Главная активность приложения.
@@ -21,7 +30,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
-       val TAG = "MainActivityLog"
+       const val TAG = "MainActivityLog"
+       const val PERMISSION_REQUEST_CODE = 1
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -32,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolbar.title = ""
         setSupportActionBar(binding.toolbar)
 
         // конфигурация навигации
@@ -45,22 +56,120 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(navController)
 
         // для главной страницы уникальный ActionBar
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            Log.d(TAG, "onCreate: destination - " + destination.label)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             setAddressActionBar(destination.id == R.id.nav_home)
+        }
+
+        binding.addressToolbar.setOnClickListener {
+            navController.navigate(R.id.to_address_fragment)
         }
 
         // TODO("Test badge)
         val badge = binding.navView.getOrCreateBadge(R.id.nav_basket)
+        badge.verticalOffset = 5
         badge.maxCharacterCount = 3
         badge.number = 100
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                updateUserLocation()
+                return
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     private fun setAddressActionBar(enable: Boolean) {
         if (enable) {
-            supportActionBar?.setDisplayShowTitleEnabled(false)
-        } else {
-            supportActionBar?.setDisplayShowTitleEnabled(true)
+            binding.toolbar.title = ""
+            updateUserLocation()
         }
+        binding.addressToolbar.visibility = CommonUtils.toVisibly(enable)
+    }
+
+    private fun updateUserLocation() {
+        // получение сохраненного адреса
+        val userAddress = ApplicationPreference.userAddress(this)
+        if (userAddress != null) {
+            binding.addressLocation.text = userAddress
+            return
+        }
+
+        // получение по сети
+        if (checkPermission()) {
+            // запрос на локацию
+            val request = LocationRequest()
+            request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+            LocationServices.getFusedLocationProviderClient(this)
+                .requestLocationUpdates(request, object : LocationCallback() {
+                    override fun onLocationResult(result: LocationResult?) {
+                        super.onLocationResult(result)
+                        // удаление задачи
+                        LocationServices.getFusedLocationProviderClient(this@MainActivity)
+                            .removeLocationUpdates(this)
+
+                        if (result != null && result.locations.isNotEmpty()) {
+                            val locationIndex = result.locations.size - 1
+                            val latitude = result.locations[locationIndex].latitude
+                            val longitude = result.locations[locationIndex].longitude
+
+                            val coder = Geocoder(this@MainActivity, Locale.getDefault())
+
+                            // получение адреса
+                            try {
+                                val location = coder.getFromLocation(latitude, longitude, 1)
+                                if (location == null) {
+                                    binding.addressLocation.setText(R.string.address_not_set)
+                                    return
+                                }
+
+                                val address = location[0]
+                                val addressLines = ArrayList<String>()
+                                for (index in 0..address.maxAddressLineIndex) {
+                                    address.getAddressLine(index)?.let {
+                                        addressLines.add(it)
+                                    }
+                                }
+
+                                val formatAddress = addressLines.joinToString(", ")
+                                binding.addressLocation.text = formatAddress
+                                ApplicationPreference.setUserAddress(this@MainActivity, formatAddress)
+
+                            } catch (ignored: Exception) {
+                                binding.addressLocation.setText(R.string.address_not_set)
+                            }
+                        } else {
+                            binding.addressLocation.setText(R.string.address_not_set)
+                        }
+                    }
+                }, Looper.getMainLooper())
+
+        } else {
+            binding.addressLocation.setText(R.string.address_not_set)
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+
+        ActivityCompat.requestPermissions(this, arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+        ), PERMISSION_REQUEST_CODE)
+
+        return false
     }
 }
