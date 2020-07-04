@@ -13,9 +13,5 @@ class CommonUtils {
          * В зависимости от visible возвращает значение видимости для View.
          */
         fun toVisibly(visible: Boolean) = if (visible) View.VISIBLE else View.GONE
-
-        fun formatAddress(address: Address): String? {
-            return null
-        }
     }
 }

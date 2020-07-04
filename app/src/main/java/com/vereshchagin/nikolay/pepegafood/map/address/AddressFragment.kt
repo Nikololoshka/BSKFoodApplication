@@ -1,48 +1,135 @@
 package com.vereshchagin.nikolay.pepegafood.map.address
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.vereshchagin.nikolay.pepegafood.MainActivity
 import com.vereshchagin.nikolay.pepegafood.R
+import com.vereshchagin.nikolay.pepegafood.databinding.FragmentAddressBinding
+import com.vereshchagin.nikolay.pepegafood.settings.ApplicationPreference
 
+/**
+ * Фрагмент для смены адреса пользователя для доставки.
+ */
 class AddressFragment : Fragment() {
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
+
+    private var _binding: FragmentAddressBinding? = null
+    private val binding get() = _binding!!
+
+    /**
+     * Google карта.
+     */
+    private var map: GoogleMap? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_address, container, false)
+        _binding = FragmentAddressBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+
+        // Callback для карты
+        val mapFragment = childFragmentManager.findFragmentById(R.id.address_map) as SupportMapFragment?
+        mapFragment?.getMapAsync { map ->
+            this.map = map
+            map.setOnCameraIdleListener {
+                Log.d("MyLog", "onViewCreated: " + map.cameraPosition.target)
+            }
+
+            checkLocationPermission()
+            updateMapUI()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                updateMapUI()
+                return
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun updateMapUI() {
+        val coordinates = ApplicationPreference.userAddressCoordinates(context)
+
+        map?.let { map ->
+            map.addMarker(
+                MarkerOptions()
+                    .position(coordinates)
+                    .title("Marker in Sydney")
+                    .snippet("Move marker")
+                    .draggable(true)
+            )
+
+            if (checkLocationPermission()) {
+                map.isMyLocationEnabled = true
+                map.uiSettings.isMyLocationButtonEnabled = true
+            }
+            map.uiSettings.isZoomControlsEnabled = true
+
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 15.0F))
+        }
+    }
+
+    /**
+     * Проверяет, если разрешение на доступ к GPS.
+     * Если нет, то запрашивает его.
+     */
+    private fun checkLocationPermission(): Boolean {
+        context?.let { context ->
+            if (ActivityCompat.checkSelfPermission(context,
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            ) {
+                return true
+            }
+        }
+
+        // запрос разрешения
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ), LOCATION_PERMISSION_REQUEST_CODE
+        )
+        return false
     }
 }

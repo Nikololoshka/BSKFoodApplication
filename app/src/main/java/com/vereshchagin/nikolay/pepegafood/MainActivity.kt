@@ -3,12 +3,10 @@ package com.vereshchagin.nikolay.pepegafood
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -20,7 +18,6 @@ import com.google.android.gms.location.LocationServices
 import com.vereshchagin.nikolay.pepegafood.databinding.ActivityMainBinding
 import com.vereshchagin.nikolay.pepegafood.settings.ApplicationPreference
 import com.vereshchagin.nikolay.pepegafood.utils.CommonUtils
-import kotlinx.android.synthetic.main.activity_main.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -103,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // получение по сети
-        if (checkPermission()) {
+        if (checkLocationPermission()) {
             // запрос на локацию
             val request = LocationRequest()
             request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -142,6 +139,7 @@ class MainActivity : AppCompatActivity() {
                                 val formatAddress = addressLines.joinToString(", ")
                                 binding.addressLocation.text = formatAddress
                                 ApplicationPreference.setUserAddress(this@MainActivity, formatAddress)
+                                ApplicationPreference.setUserAddressCoordinates(this@MainActivity, latitude, longitude)
 
                             } catch (ignored: Exception) {
                                 binding.addressLocation.setText(R.string.address_not_set)
@@ -157,7 +155,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkPermission(): Boolean {
+    private fun checkLocationPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
             && ActivityCompat.checkSelfPermission(this,
