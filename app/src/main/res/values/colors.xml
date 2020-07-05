@@ -3,7 +3,7 @@
     <!-- Основные цвета приложения -->
     <color name="colorPrimary">#0D2840</color>
     <color name="colorPrimaryDark">#061727</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#FDD835</color>
 
     <color name="colorBottomNavigationItem">#8E8E8E</color>
     <color name="colorBottomNavigationItemSelected">#FFFFFF</color>

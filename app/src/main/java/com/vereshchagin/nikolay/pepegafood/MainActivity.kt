@@ -129,14 +129,7 @@ class MainActivity : AppCompatActivity() {
                                 }
 
                                 val address = location[0]
-                                val addressLines = ArrayList<String>()
-                                for (index in 0..address.maxAddressLineIndex) {
-                                    address.getAddressLine(index)?.let {
-                                        addressLines.add(it)
-                                    }
-                                }
-
-                                val formatAddress = addressLines.joinToString(", ")
+                                val formatAddress = CommonUtils.addressToString(address)
                                 binding.addressLocation.text = formatAddress
                                 ApplicationPreference.setUserAddress(this@MainActivity, formatAddress)
                                 ApplicationPreference.setUserAddressCoordinates(this@MainActivity, latitude, longitude)

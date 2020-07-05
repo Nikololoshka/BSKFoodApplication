@@ -8,7 +8,12 @@
     <string name="nav_profile">Profile</string>
 
     <string name="home_your_address">Your address</string>
-    <string name="address_search">Address search</string>
+
+    <string name="address_loading">Address detection…</string>
+    <string name="address_error">Address detection error</string>
     <string name="address_not_set">Address not set</string>
-    
+    <string name="map_marker_position">The marker\'s current position</string>
+    <string name="address_selected_address">Selected address</string>
+
+
 </resources>
