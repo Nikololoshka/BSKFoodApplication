@@ -29,7 +29,7 @@ class StatefulLayout (
         }
 
         val fade = Fade()
-        fade.duration = 300
+        fade.duration = CommonUtils.FADE_DURATION
         TransitionManager.beginDelayedTransition(root, fade)
 
         states[currentState]?.visibility = View.GONE

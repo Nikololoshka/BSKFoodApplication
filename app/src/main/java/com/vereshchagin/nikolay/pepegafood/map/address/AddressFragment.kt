@@ -83,7 +83,7 @@ class AddressFragment : Fragment() {
         mapFragment.getMapAsync { map ->
             this.map = map
             map.setOnCameraIdleListener {
-                viewModel.currentCoordinates(map.cameraPosition.target)
+                viewModel.updateUserAddress(map.cameraPosition.target)
             }
 
             checkLocationPermission()
@@ -100,7 +100,7 @@ class AddressFragment : Fragment() {
         completeFragment.setPlaceFields(listOf(Place.Field.LAT_LNG))
         completeFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                viewModel.currentCoordinates(place.latLng)
+                viewModel.updateUserAddress(place.latLng)
                 map?.animateCamera(CameraUpdateFactory.newLatLngZoom(place.latLng, MAP_SCALE))
             }
 
@@ -117,14 +117,14 @@ class AddressFragment : Fragment() {
                 val address = viewModel.currentAddress
 
                 if (address != null) {
-                    context?.let { context ->
+                    activity?.let { activity ->
                         ApplicationPreference.setUserAddressCoordinates(
-                            context, coordinates.latitude, coordinates.longitude
+                            activity, coordinates.latitude, coordinates.longitude
                         )
                         ApplicationPreference.setUserAddress(
-                            context, address
+                            activity, address
                         )
-                        activity?.onBackPressed()
+                        activity.onBackPressed()
                     }
                 }
             }

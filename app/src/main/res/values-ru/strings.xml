@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_home">Главная</string>
+    <string name="nav_catalog">Каталог</string>
+    <string name="nav_basket">Корзина</string>
+    <string name="nav_map">Карта</string>
+    <string name="nav_profile">Профиль</string>
+
+    <string name="home_your_address">Ваш адрес</string>
+
+    <string name="address_loading">Определение адреса…</string>
+    <string name="address_error">Адрес не найден</string>
+    <string name="address_not_set">Адрес не установлен</string>
+    <string name="map_marker_position">Маркер текущей позиции</string>
+    <string name="address_selected_address">Выбранный адрес</string>
+
+    <string name="home_search_hint">Введите название продукта</string>
+    <string name="home_search_button">Поиск</string>
+    <string name="home_collect_food_basket">Собрать корзину</string>
+    <string name="home_look_basket">Посмотреть</string>
+    <string name="home_automatic_collection">Автоматический сбор</string>
+    <string name="home_favorite_baskets">Любимые корзины</string>
+    <string name="home_catalog">Каталог</string>
+
+    <string name="login_title">Вход в PepegaFood</string>
+    <string name="login_phone">Телефон</string>
+    <string name="login_sign_in">Войти</string>
+    <string name="login_registration">Регистрация</string>
+    <string name="login_logo">Логотип PepegaFood</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Пароль</string>
+    <string name="login_login">Вход</string>
+    <string name="login_forgot_password">Забыли пароль?</string>
+    <string name="login_person_name">Имя</string>
+    <string name="login_confirm_password">Повторите пароль</string>
+    <string name="login_sign_out">Зарегистрироваться</string>
+    <string name="login_person_placeholder">Сергей</string>
+    <string name="login_email_invalid">Неправильный формат почты</string>
+    <string name="login_password_invalid">Пароль меньше 8 символов</string>
+
+</resources>

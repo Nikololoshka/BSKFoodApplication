@@ -13,6 +13,9 @@ import kotlin.math.roundToInt
 class CommonUtils {
 
     companion object {
+
+        const val FADE_DURATION = 300L
+
         /**
          * В зависимости от visible возвращает значение видимости для View.
          */

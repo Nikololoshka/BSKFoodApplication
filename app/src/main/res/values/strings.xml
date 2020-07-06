@@ -15,5 +15,30 @@
     <string name="map_marker_position">The marker\'s current position</string>
     <string name="address_selected_address">Selected address</string>
 
+    <string name="home_search_hint">Enter the product name.</string>
+    <string name="home_search_button">Search button</string>
+    <string name="home_collect_food_basket">Collect food basket</string>
+    <string name="home_look_basket">Look</string>
+    <string name="home_automatic_collection">Automatic collection</string>
+    <string name="home_favorite_baskets">Favorite baskets</string>
+    <string name="home_catalog">Catalog</string>
+
+    <string name="login_title">Login in PepegaFood</string>
+    <string name="login_phone">Phone</string>
+    <string name="login_sign_in">Sign in</string>
+    <string name="login_registration">Registration</string>
+    <string name="login_logo">Logo of PepegaFood</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_login">Login</string>
+    <string name="login_forgot_password">Forgot your password?</string>
+    <string name="login_person_name">Person name</string>
+    <string name="login_confirm_password">Confirm password</string>
+    <string name="login_sign_out">Sign_out</string>
+    <string name="login_person_placeholder">Sergey</string>
+    <string name="login_password_placeholder" translatable="false">********</string>
+    <string name="login_email_invalid">Invalid mail format</string>
+    <string name="login_password_invalid">Password less than 8 characters</string>
+
 
 </resources>

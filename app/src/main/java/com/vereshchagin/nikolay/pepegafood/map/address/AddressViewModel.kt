@@ -15,18 +15,40 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
+/**
+ * ViewModel для установления адреса доставки.
+ */
 class AddressViewModel(application: Application) : AndroidViewModel(application) {
 
+    /**
+     * Текущие состояние загрузки адреса.
+     */
     val state = MutableLiveData(LoadState.LOADING)
 
+    /**
+     * Координаты на карте.
+     */
     var coordinates = ApplicationPreference.userAddressCoordinates(application)
+
+    /**
+     * Текущий адрес.
+     */
     var currentAddress = ApplicationPreference.userAddress(application)
 
+    /**
+     * Геокодер для адреса.
+     */
     private val coder = Geocoder(application, Locale.getDefault())
+
+    /**
+     * Executor для получения адреса.
+     */
     private val executor: ExecutorService = Executors.newSingleThreadExecutor()
 
-    fun currentCoordinates(target: LatLng?) {
+    /**
+     * Обновляет адресс исходя из координат.
+     */
+    fun updateUserAddress(target: LatLng?) {
         if (target == null) {
             state.value = LoadState.EMPTY_ERROR
             return
@@ -49,6 +71,9 @@ class AddressViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    /**
+     * Factory для создания ViewModel.
+     */
     class Factory(private val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
