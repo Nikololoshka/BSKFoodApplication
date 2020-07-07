@@ -2,12 +2,15 @@ package com.vereshchagin.nikolay.pepegafood.profile.login
 
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.Fade
+import androidx.transition.Slide
 import androidx.transition.TransitionManager
+import androidx.transition.Visibility.MODE_IN
 import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.databinding.ActivityLoginBinding
 import com.vereshchagin.nikolay.pepegafood.utils.CommonUtils
@@ -36,8 +39,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        binding.phone.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-
         viewModel = ViewModelProvider(this, LoginViewModel.Factory())
             .get(LoginViewModel::class.java)
 
@@ -54,57 +55,29 @@ class LoginActivity : AppCompatActivity() {
                 getString(loginState.passwordError) else null
         })
 
-        initLoginTab()
-/*
+        viewModel.registrationFormState.observe(this, Observer {
+            val registrationState = it ?: return@Observer
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
+            binding.registrationButton.isEnabled = registrationState.isDataValid
 
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
+            binding.registrationUserNameLayout.error = if (registrationState.userNameError != null)
+                getString(registrationState.userNameError) else null
 
-            //Complete and destroy login activity once successful
-            finish()
+            binding.registrationEmailLayout.error = if (registrationState.emailError != null)
+                getString(registrationState.emailError) else null
+
+            binding.registrationPhoneLayout.error = if (registrationState.phoneError != null)
+                getString(registrationState.phoneError) else null
+
+            binding.registrationPasswordLayout.error = if (registrationState.passwordError != null)
+                getString(registrationState.passwordError) else null
+
+            binding.registrationConfirmPasswordLayout.error = if (registrationState.conformPasswordError != null)
+                getString(registrationState.conformPasswordError) else null
         })
 
-        username.afterTextChanged {
-            loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
-            )
-        }
-
-        password.apply {
-            afterTextChanged {
-                loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
-                )
-            }
-
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
-                }
-                false
-            }
-
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
-            }
-        }
-        */
+        initLoginTab()
+        initRegistrationTab()
     }
 
     private fun initLoginTab() {
@@ -129,10 +102,43 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun initRegistrationTab() {
+        binding.registrationUserName.doAfterTextChanged {
+            updateRegistrationForm()
+        }
+
+        binding.registrationEmail.doAfterTextChanged {
+            updateRegistrationForm()
+        }
+
+        binding.registrationPhone.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+        binding.registrationPhone.doAfterTextChanged {
+            updateRegistrationForm()
+        }
+
+        binding.registrationPassword.doAfterTextChanged {
+            updateRegistrationForm()
+        }
+
+        binding.registrationConfirmPassword.doAfterTextChanged {
+            updateRegistrationForm()
+        }
+    }
+
     private fun updateLoginForm() {
         viewModel.loginDataChanged(
             binding.loginEmail.text.toString(),
             binding.loginPassword.text.toString()
+        )
+    }
+
+    private fun updateRegistrationForm() {
+        viewModel.registrationDataChanged(
+            binding.registrationUserName.text.toString(),
+            binding.registrationEmail.text.toString(),
+            binding.registrationPhone.text.toString(),
+            binding.registrationPassword.text.toString(),
+            binding.registrationConfirmPassword.text.toString()
         )
     }
 

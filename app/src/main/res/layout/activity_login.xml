@@ -135,6 +135,7 @@
             android:visibility="gone" >
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registration_user_name_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,6 +145,7 @@
                 app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registration_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName" />
@@ -151,6 +153,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registration_email_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -160,6 +163,7 @@
                 app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registration_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress" />
@@ -167,6 +171,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registration_phone_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,7 +181,7 @@
                 app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone"
+                    android:id="@+id/registration_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone" />
@@ -184,6 +189,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registration_password_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,6 +200,7 @@
                 app:passwordToggleEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registration_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
@@ -201,6 +208,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registration_confirm_password_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -211,6 +219,7 @@
                 app:passwordToggleEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registration_confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />

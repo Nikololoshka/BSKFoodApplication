@@ -2,11 +2,10 @@ package com.vereshchagin.nikolay.pepegafood.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.databinding.FragmentProfileBinding
 import com.vereshchagin.nikolay.pepegafood.profile.login.LoginActivity
 
@@ -26,11 +25,16 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_profile, menu)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Вход в аккаунт
-        binding.login.setOnClickListener {
+        binding.profileHead.setOnClickListener {
             val loginIntent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(loginIntent)
         }
