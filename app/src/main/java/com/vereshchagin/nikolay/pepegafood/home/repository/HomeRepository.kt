@@ -1,0 +1,58 @@
+package com.vereshchagin.nikolay.pepegafood.home.repository
+
+import android.content.Context
+import androidx.paging.LivePagedListBuilder
+import com.vereshchagin.nikolay.pepegafood.MainApplicationDatabase
+import com.vereshchagin.nikolay.pepegafood.home.repository.model.CatalogItem
+import com.vereshchagin.nikolay.pepegafood.home.repository.model.FavoriteBasket
+import com.vereshchagin.nikolay.pepegafood.home.repository.model.ShoppingBasket
+import java.util.concurrent.Executors
+
+class HomeRepository(context: Context) {
+
+    private val db = MainApplicationDatabase.database(context)
+    private val dao = db.home()
+
+    private val ioExecutor = Executors.newSingleThreadExecutor()
+
+    fun content() : HomeListing {
+
+        ioExecutor.execute {
+            db.runInTransaction {
+                dao.insertShoppingBaskets(
+                    listOf(
+                        ShoppingBasket(1, "500 р"),
+                        ShoppingBasket(2, "1000 р"),
+                        ShoppingBasket(3, "2500 р"),
+                        ShoppingBasket(4, "5000 р")
+                    )
+                )
+                dao.insertFavoriteBaskets(
+                    listOf(
+                        FavoriteBasket(1, "Дошираки", "25565 р")
+                    )
+                )
+                val list = ArrayList<CatalogItem>()
+                for (index in 0..50) {
+                    list.add(CatalogItem(index, "$index"))
+                }
+                dao.insertCatalogItems(list)
+            }
+        }
+
+        val shoppingBaskets = LivePagedListBuilder(dao.shoppingBaskets(), 10)
+            .build()
+
+        val favoriteBaskets = LivePagedListBuilder(dao.favoriteBaskets(), 10)
+            .build()
+
+        val catalogItems = LivePagedListBuilder(dao.catalogItems(), 10)
+            .build()
+
+        return HomeListing(
+            shoppingBaskets,
+            favoriteBaskets,
+            catalogItems
+        )
+    }
+}
