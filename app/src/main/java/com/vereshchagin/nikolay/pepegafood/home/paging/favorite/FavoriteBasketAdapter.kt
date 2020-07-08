@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.home.repository.model.FavoriteBasket
 
+/**
+ * Адаптер для списка избранных корзин.
+ */
 class FavoriteBasketAdapter
     : PagedListAdapter<FavoriteBasket, FavoriteBasketItemHolder>(
     BASKET_COMPARATOR

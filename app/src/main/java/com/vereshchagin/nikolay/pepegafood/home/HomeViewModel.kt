@@ -7,6 +7,9 @@ import com.vereshchagin.nikolay.pepegafood.home.repository.HomeRepository
 import com.vereshchagin.nikolay.pepegafood.profile.login.LoginViewModel
 import com.vereshchagin.nikolay.pepegafood.profile.login.repository.LoginRepository
 
+/**
+ * ViewModel для главнойс страницы.
+ */
 class HomeViewModel(
     private val repository: HomeRepository
 ) : ViewModel() {
@@ -16,6 +19,9 @@ class HomeViewModel(
     val favoriteBaskets = Transformations.switchMap(repositoryListing) { it.favoriteBaskets }
     val catalogItems = Transformations.switchMap(repositoryListing) { it.catalogItems }
 
+    /**
+     * Factory для создания HomeViewModelю
+     */
     class Factory (
         private val application: Application
     ) : ViewModelProvider.Factory {

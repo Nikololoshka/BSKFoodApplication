@@ -7,12 +7,11 @@ import android.util.Patterns
 import androidx.lifecycle.ViewModelProvider
 import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.profile.login.data.LoginFormState
-import com.vereshchagin.nikolay.pepegafood.profile.login.data.LoginResult
 import com.vereshchagin.nikolay.pepegafood.profile.login.data.RegistrationFormState
 import com.vereshchagin.nikolay.pepegafood.profile.login.repository.LoginRepository
 
 /**
- *
+ * ViewModel для авторизации.
  */
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -22,20 +21,15 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _registrationForm = MutableLiveData<RegistrationFormState>()
     val registrationFormState: LiveData<RegistrationFormState> = _registrationForm
 
-    //******************
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
-
     /**
-     *
+     * Выполняет вход в систему.
      */
     fun login(email: String, password: String) {
         loginRepository.login(email, password)
-
     }
 
     /**
-     *
+     * Проверяет форму входа на правильность.
      */
     fun loginDataChanged(email: String, password: String) {
         when {
@@ -60,6 +54,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
+    /**
+     * Проверяет форму регистрации на правильность.
+     */
     fun registrationDataChanged(userName: String, email: String, phone: String,
                                 password: String, confirmPassword: String) {
         when {
@@ -129,8 +126,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         password == confirmPassword
 
     /**
-     * ViewModel provider factory to instantiate LoginViewModel.
-     * Required given LoginViewModel has a non-empty constructor
+     * Factory для создания LoginViewModel.
      */
     class Factory : ViewModelProvider.Factory {
 

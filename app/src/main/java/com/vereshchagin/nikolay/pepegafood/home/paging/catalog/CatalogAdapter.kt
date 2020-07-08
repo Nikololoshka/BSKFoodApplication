@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.home.repository.model.CatalogItem
 
-
+/**
+ * Адаптер для списка каталога на главной странице.
+ */
 class CatalogAdapter : PagedListAdapter<CatalogItem, CatalogItemHolder>(
     CATALOG_COMPARATOR
 ) {

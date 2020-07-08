@@ -9,6 +9,9 @@ import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.databinding.FragmentProfileBinding
 import com.vereshchagin.nikolay.pepegafood.profile.login.LoginActivity
 
+/**
+ * Фрагмент профиля.
+ */
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null

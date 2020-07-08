@@ -8,6 +8,9 @@ import com.vereshchagin.nikolay.pepegafood.home.repository.model.FavoriteBasket
 import com.vereshchagin.nikolay.pepegafood.home.repository.model.ShoppingBasket
 import java.util.concurrent.Executors
 
+/**
+ * Репозиторий для загрузки информации для главной страницы.
+ */
 class HomeRepository(context: Context) {
 
     private val db = MainApplicationDatabase.database(context)
@@ -15,8 +18,10 @@ class HomeRepository(context: Context) {
 
     private val ioExecutor = Executors.newSingleThreadExecutor()
 
+    /**
+     * Возвращает Listing для отображения на главной страницы.
+     */
     fun content() : HomeListing {
-
         ioExecutor.execute {
             db.runInTransaction {
                 dao.insertShoppingBaskets(
@@ -34,7 +39,7 @@ class HomeRepository(context: Context) {
                 )
                 val list = ArrayList<CatalogItem>()
                 for (index in 0..50) {
-                    list.add(CatalogItem(index, "$index"))
+                    list.add(CatalogItem(index, "Category: $index"))
                 }
                 dao.insertCatalogItems(list)
             }

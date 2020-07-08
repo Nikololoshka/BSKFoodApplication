@@ -38,10 +38,18 @@ class LoginActivity : AppCompatActivity() {
             showLoginTab(group.checkedButtonId == R.id.login_tab)
         }
 
-
         viewModel = ViewModelProvider(this, LoginViewModel.Factory())
             .get(LoginViewModel::class.java)
 
+
+        initLoginTab()
+        initRegistrationTab()
+    }
+
+    /**
+     * Инициализация вкладки входа.
+     */
+    private fun initLoginTab() {
         // проверка формы для входа в систему
         viewModel.loginFormState.observe(this, Observer {
             val loginState = it ?: return@Observer
@@ -55,32 +63,6 @@ class LoginActivity : AppCompatActivity() {
                 getString(loginState.passwordError) else null
         })
 
-        viewModel.registrationFormState.observe(this, Observer {
-            val registrationState = it ?: return@Observer
-
-            binding.registrationButton.isEnabled = registrationState.isDataValid
-
-            binding.registrationUserNameLayout.error = if (registrationState.userNameError != null)
-                getString(registrationState.userNameError) else null
-
-            binding.registrationEmailLayout.error = if (registrationState.emailError != null)
-                getString(registrationState.emailError) else null
-
-            binding.registrationPhoneLayout.error = if (registrationState.phoneError != null)
-                getString(registrationState.phoneError) else null
-
-            binding.registrationPasswordLayout.error = if (registrationState.passwordError != null)
-                getString(registrationState.passwordError) else null
-
-            binding.registrationConfirmPasswordLayout.error = if (registrationState.conformPasswordError != null)
-                getString(registrationState.conformPasswordError) else null
-        })
-
-        initLoginTab()
-        initRegistrationTab()
-    }
-
-    private fun initLoginTab() {
         binding.loginEmail.doAfterTextChanged {
             updateLoginForm()
         }
@@ -102,7 +84,31 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Инициализация вкладки регистрации.
+     */
     private fun initRegistrationTab() {
+        viewModel.registrationFormState.observe(this, Observer {
+            val registrationState = it ?: return@Observer
+
+            binding.registrationButton.isEnabled = registrationState.isDataValid
+
+            binding.registrationUserNameLayout.error = if (registrationState.userNameError != null)
+                getString(registrationState.userNameError) else null
+
+            binding.registrationEmailLayout.error = if (registrationState.emailError != null)
+                getString(registrationState.emailError) else null
+
+            binding.registrationPhoneLayout.error = if (registrationState.phoneError != null)
+                getString(registrationState.phoneError) else null
+
+            binding.registrationPasswordLayout.error = if (registrationState.passwordError != null)
+                getString(registrationState.passwordError) else null
+
+            binding.registrationConfirmPasswordLayout.error = if (registrationState.conformPasswordError != null)
+                getString(registrationState.conformPasswordError) else null
+        })
+
         binding.registrationUserName.doAfterTextChanged {
             updateRegistrationForm()
         }
@@ -125,6 +131,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Обновляет форму входа.
+     */
     private fun updateLoginForm() {
         viewModel.loginDataChanged(
             binding.loginEmail.text.toString(),
@@ -132,6 +141,9 @@ class LoginActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Обновляет форму регистрации.
+     */
     private fun updateRegistrationForm() {
         viewModel.registrationDataChanged(
             binding.registrationUserName.text.toString(),
@@ -142,6 +154,9 @@ class LoginActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Переключает вкладки: вход / регистрация.
+     */
     private fun showLoginTab(show: Boolean) {
         val fade = Fade()
         fade.duration = CommonUtils.FADE_DURATION

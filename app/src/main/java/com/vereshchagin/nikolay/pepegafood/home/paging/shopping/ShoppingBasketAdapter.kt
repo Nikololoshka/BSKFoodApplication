@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.home.repository.model.ShoppingBasket
 
-
+/**
+ * Адаптер для списка авто-корзин.
+ */
 class ShoppingBasketAdapter
     : PagedListAdapter<ShoppingBasket, ShoppingBasketItemHolder>(
     BASKET_COMPARATOR

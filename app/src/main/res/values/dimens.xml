@@ -21,5 +21,6 @@
     <dimen name="home_card_content">8dp</dimen>
     <dimen name="home_basket_width">160dp</dimen>
     <dimen name="profile_card_padding">12dp</dimen>
+    <dimen name="default_bottom_sheet_size">48dp</dimen>
 
 </resources>

@@ -13,7 +13,7 @@ import com.vereshchagin.nikolay.pepegafood.home.paging.favorite.FavoriteBasketAd
 import com.vereshchagin.nikolay.pepegafood.home.paging.shopping.ShoppingBasketAdapter
 
 /**
- *
+ * Фрагмент главной страницы.
  */
 class HomeFragment : Fragment() {
 
@@ -38,20 +38,39 @@ class HomeFragment : Fragment() {
             HomeViewModel.Factory(activity?.application!!))
             .get(HomeViewModel::class.java)
 
+        initShoppingBaskets()
+        initFavoriteBaskets()
+        initCatalogItems()
+    }
+
+    /**
+     * Инициализация списка с авто-корзинами.
+     */
+    private fun initShoppingBaskets() {
         val shoppingBasketAdapter = ShoppingBasketAdapter()
         binding.recyclerAutoBaskets.adapter = shoppingBasketAdapter
 
         viewModel.shoppingBaskets.observe(viewLifecycleOwner, Observer {
             shoppingBasketAdapter.submitList(it)
         })
+    }
 
+    /**
+     * Инициализация избранных корзин.
+     */
+    private fun initFavoriteBaskets() {
         val favoriteBasketAdapter = FavoriteBasketAdapter()
         binding.recyclerFavorites.adapter = favoriteBasketAdapter
 
         viewModel.favoriteBaskets.observe(viewLifecycleOwner, Observer {
             favoriteBasketAdapter.submitList(it)
         })
+    }
 
+    /**
+     * Инициализация каталога.
+     */
+    private fun initCatalogItems() {
         val catalogAdapter = CatalogAdapter()
         binding.recyclerCatalog.adapter = catalogAdapter
 

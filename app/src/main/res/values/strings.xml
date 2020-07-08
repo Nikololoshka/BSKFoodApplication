@@ -53,5 +53,19 @@
     <string name="profile_log_in_helper">Click here to log in</string>
     <string name="profile_action">Profile action</string>
 
+    <string name="basket_basket_image">Basket image</string>
+    <string name="bucket_is_empty">The bucket is empty</string>
+    <string name="basket_try_to_find_something">Try to find something</string>
+    <string name="button_in_the_catalog">in the catalog</string>
+    <string name="basket_place_your_order">Place your order</string>
+    <string name="basket_product_list">Product list</string>
+    <string name="basket_forever_baskets">Forever baskets</string>
+    <string name="basket_open_button">Open button</string>
+    <string name="basket_subtotal">Subtotal:</string>
+    <string name="basket_remove_all">Remove all</string>
+    <string name="basket_product_image">Basket product image</string>
+
+    <string name="catalog_select">Select a product category</string>
+
 
 </resources>
