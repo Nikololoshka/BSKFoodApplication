@@ -14,7 +14,7 @@
     <string name="map_marker_position">Маркер текущей позиции</string>
     <string name="address_selected_address">Выбранный адрес</string>
 
-    <string name="home_search_hint">Введите название продукта</string>
+    <string name="search_hint">Введите название продукта</string>
     <string name="home_search_button">Поиск</string>
     <string name="home_collect_food_basket">Собрать корзину</string>
     <string name="home_look_basket">Посмотреть</string>
@@ -64,5 +64,7 @@
     <string name="basket_product_image">Изображение продукта</string>
 
     <string name="catalog_select">Выберите категорию продуктов</string>
+
+    <string name="search">Поиск</string>
 
 </resources>

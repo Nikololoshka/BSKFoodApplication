@@ -15,7 +15,7 @@
     <string name="map_marker_position">The marker\'s current position</string>
     <string name="address_selected_address">Selected address</string>
 
-    <string name="home_search_hint">Enter the product name.</string>
+    <string name="search_hint">Enter the product name.</string>
     <string name="home_search_button">Search button</string>
     <string name="home_collect_food_basket">Collect food basket</string>
     <string name="home_look_basket">Look</string>
@@ -67,5 +67,8 @@
 
     <string name="catalog_select">Select a product category</string>
 
+    <string name="search">Search</string>
+    <string name="nav_address">Select address</string>
+    <string name="nav_search">Search</string>
 
 </resources>

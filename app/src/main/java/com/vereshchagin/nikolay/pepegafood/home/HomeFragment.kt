@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.databinding.FragmentHomeBinding
 import com.vereshchagin.nikolay.pepegafood.home.paging.catalog.CatalogAdapter
 import com.vereshchagin.nikolay.pepegafood.home.paging.favorite.FavoriteBasketAdapter
@@ -28,6 +30,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.homeSearch.setOnClickListener { onSearchViewClicked() }
+
         return binding.root
     }
 
@@ -79,8 +84,15 @@ class HomeFragment : Fragment() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
+    }
+
+    /**
+     * Переход к фрагмету поиска.
+     */
+    private fun onSearchViewClicked() {
+        activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.to_search_fragment)
     }
 }

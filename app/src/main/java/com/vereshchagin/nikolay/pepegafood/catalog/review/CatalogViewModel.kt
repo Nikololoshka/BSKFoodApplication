@@ -1,4 +1,4 @@
-package com.vereshchagin.nikolay.pepegafood.catalog
+package com.vereshchagin.nikolay.pepegafood.catalog.review
 
 import androidx.lifecycle.ViewModel
 

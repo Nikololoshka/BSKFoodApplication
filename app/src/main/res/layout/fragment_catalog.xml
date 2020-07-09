@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".catalog.CatalogFragment">
+    tools:context=".catalog.review.CatalogFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -32,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-
     <androidx.cardview.widget.CardView
         style="@style/CardStyle"
         android:layout_width="match_parent"
@@ -42,37 +41,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/catalog_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <EditText
-                android:id="@+id/search_product"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="@string/home_search_hint"
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="textFilter"
-                android:padding="@dimen/default_title_padding" />
-
-            <ImageButton
-                android:id="@+id/search_button"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/home_search_button"
-                android:padding="@dimen/default_title_padding"
-                android:src="@drawable/ic_common_search" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_common_search"
+            android:text="@string/search_hint"
+            android:gravity="center_vertical"
+            android:padding="@dimen/default_title_padding" />
 
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

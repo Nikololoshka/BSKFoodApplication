@@ -70,8 +70,8 @@ class BasketFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

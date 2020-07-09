@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_catalog"
-        android:name="com.vereshchagin.nikolay.pepegafood.catalog.CatalogFragment"
+        android:name="com.vereshchagin.nikolay.pepegafood.catalog.review.CatalogFragment"
         android:label="@string/nav_catalog"
         tools:layout="@layout/fragment_catalog" />
 
@@ -38,12 +38,29 @@
     <fragment
         android:id="@+id/nav_address"
         android:name="com.vereshchagin.nikolay.pepegafood.map.address.AddressFragment"
-        android:label="Select address"
-        tools:layout="@layout/fragment_address" >
-    </fragment>
+        android:label="@string/nav_address"
+        tools:layout="@layout/fragment_address" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.vereshchagin.nikolay.pepegafood.catalog.search.SearchFragment"
+        android:label="@string/nav_search"
+        tools:layout="@layout/fragment_search" />
 
     <action
         android:id="@+id/to_address_fragment"
-        app:destination="@id/nav_address" />
+        app:destination="@id/nav_address"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action
+        android:id="@+id/to_search_fragment"
+        app:destination="@+id/nav_search"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
 </navigation>

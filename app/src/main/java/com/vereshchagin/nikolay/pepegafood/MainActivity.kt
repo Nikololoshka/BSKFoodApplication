@@ -19,7 +19,6 @@ import com.vereshchagin.nikolay.pepegafood.databinding.ActivityMainBinding
 import com.vereshchagin.nikolay.pepegafood.settings.ApplicationPreference
 import com.vereshchagin.nikolay.pepegafood.utils.CommonUtils
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Главная активность приложения.
