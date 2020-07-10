@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUserLocation() {
         // получение сохраненного адреса
-        val userAddress = ApplicationPreference.userAddress(this)
+        val userAddress = ApplicationPreference.userAddress()
         if (userAddress != null) {
             binding.addressLocation.text = userAddress
             return
@@ -130,8 +130,8 @@ class MainActivity : AppCompatActivity() {
                                 val address = location[0]
                                 val formatAddress = CommonUtils.addressToString(address)
                                 binding.addressLocation.text = formatAddress
-                                ApplicationPreference.setUserAddress(this@MainActivity, formatAddress)
-                                ApplicationPreference.setUserAddressCoordinates(this@MainActivity, latitude, longitude)
+                                ApplicationPreference.setUserAddress(formatAddress)
+                                ApplicationPreference.setUserAddressCoordinates(latitude, longitude)
 
                             } catch (ignored: Exception) {
                                 binding.addressLocation.setText(R.string.address_not_set)

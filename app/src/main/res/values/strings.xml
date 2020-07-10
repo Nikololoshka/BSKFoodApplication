@@ -32,16 +32,19 @@
     <string name="login_password">Password</string>
     <string name="login_login">Login</string>
     <string name="login_forgot_password">Forgot your password?</string>
-    <string name="login_person_name">Person name</string>
+    <string name="login_first_name">Person name</string>
     <string name="login_confirm_password">Confirm password</string>
     <string name="login_sign_out">Sign_out</string>
-    <string name="login_person_placeholder">Sergey</string>
+    <string name="login_first_name_placeholder">Sergey</string>
     <string name="login_password_placeholder" translatable="false">********</string>
     <string name="login_email_invalid">Invalid mail format</string>
     <string name="login_password_invalid">Password less than 8 characters</string>
-    <string name="login_user_name_invalid">User name is empty</string>
+    <string name="login_first_name_invalid">User name is empty</string>
     <string name="login_phone_invalid">Incorrect format of phone</string>
     <string name="login_confirm_password_invalid">Passwords don\'t match</string>
+    <string name="login_last_name">Last name</string>
+    <string name="login_last_name_placeholder">Alekseev</string>
+    <string name="login_last_name_invalid">Last name is empty</string>
 
     <string name="profile_logout">Logout</string>
     <string name="profile_about_application">About application</string>

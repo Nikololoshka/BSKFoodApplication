@@ -14,6 +14,8 @@ class CommonUtils {
 
     companion object {
 
+        const val API_URL = "https://pepega-food-srv.azurewebsites.net"
+
         const val FADE_DURATION = 300L
 
         /**

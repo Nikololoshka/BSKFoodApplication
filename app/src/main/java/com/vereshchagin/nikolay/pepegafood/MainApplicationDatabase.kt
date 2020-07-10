@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.vereshchagin.nikolay.pepegafood.home.repository.db.HomeDao
-import com.vereshchagin.nikolay.pepegafood.home.repository.model.CatalogItem
-import com.vereshchagin.nikolay.pepegafood.home.repository.model.FavoriteBasket
-import com.vereshchagin.nikolay.pepegafood.home.repository.model.ShoppingBasket
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.db.HomeDao
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogItem
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.FavoriteBasket
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.ShoppingBasket
 
 /**
  * Главная БД приложения.
