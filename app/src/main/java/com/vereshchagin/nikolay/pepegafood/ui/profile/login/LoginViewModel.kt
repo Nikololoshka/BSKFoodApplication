@@ -23,12 +23,15 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val registrationFormState: LiveData<RegistrationFormState> = _registrationForm
 
     val loadingState = MutableLiveData<LoadState>(null)
+    var isLogin: Boolean? = null
+        private set
 
     /**
      * Выполняет вход в систему.
      */
     fun login(email: String, password: String) {
         loginRepository.login(email, password, loadingState)
+        isLogin = true
     }
 
     /**
@@ -37,6 +40,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun registration(firstName: String, lastName: String, email: String,
                      phone: String, password: String) {
         loginRepository.registration(firstName, lastName, email, phone, password, loadingState)
+        isLogin = false
     }
 
     /**

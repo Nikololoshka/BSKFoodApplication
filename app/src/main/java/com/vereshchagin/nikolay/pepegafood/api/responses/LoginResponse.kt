@@ -1,4 +1,6 @@
-package com.vereshchagin.nikolay.pepegafood.ui.profile.login.repository.data
+package com.vereshchagin.nikolay.pepegafood.api.responses
+
+import com.google.gson.annotations.SerializedName
 
 /**
  * Ответ от сервера после входа.
@@ -6,6 +8,6 @@ package com.vereshchagin.nikolay.pepegafood.ui.profile.login.repository.data
 class LoginResponse (
     val token: String,
     val success: Boolean,
-    val userName: String
+    @SerializedName("userName") val username: String
     // val errorsMessages
 )
