@@ -23,7 +23,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val registrationFormState: LiveData<RegistrationFormState> = _registrationForm
 
     val loadingState = MutableLiveData<LoadState>(null)
-    var isLogin: Boolean? = null
+    var isLogin: Boolean = true
         private set
 
     /**

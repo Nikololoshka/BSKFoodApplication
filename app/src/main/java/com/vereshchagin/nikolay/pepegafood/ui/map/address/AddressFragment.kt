@@ -69,14 +69,14 @@ class AddressFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddressBinding.inflate(inflater, container, false)
-        _stateful = StatefulLayout(binding.root, StatefulLayout.LOADING, binding.loadingLayout.loading)
+        _stateful = StatefulLayout(binding.root, StatefulLayout.LOADING_STATE, binding.loadingLayout.loading)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        stateful.addView(StatefulLayout.CONTENT, binding.addressContent)
+        stateful.addView(StatefulLayout.CONTENT_STATE, binding.addressContent)
 
         // Callback для карты
         val mapFragment = childFragmentManager.findFragmentById(R.id.address_map) as SupportMapFragment
@@ -91,7 +91,7 @@ class AddressFragment : Fragment() {
 
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(viewModel.coordinates, MAP_SCALE))
 
-            stateful.setState(StatefulLayout.CONTENT)
+            stateful.setState(StatefulLayout.CONTENT_STATE)
         }
 
         // Autocomplete для адреса

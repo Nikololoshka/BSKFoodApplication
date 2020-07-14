@@ -12,4 +12,6 @@ class UserInfoResponse (
     @SerializedName("phoneNumber") val phone: String,
     val address: String,
     @SerializedName("userName") val username: String
-)
+) {
+    fun fullName() = "$firstName $lastName"
+}

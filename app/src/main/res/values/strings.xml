@@ -6,6 +6,8 @@
     <string name="nav_basket">Basket</string>
     <string name="nav_map">Map</string>
     <string name="nav_profile">Profile</string>
+    <string name="nav_address">Select address</string>
+    <string name="nav_search">Search</string>
 
     <string name="home_your_address">Your address</string>
 
@@ -38,13 +40,16 @@
     <string name="login_first_name_placeholder">Sergey</string>
     <string name="login_password_placeholder" translatable="false">********</string>
     <string name="login_email_invalid">Invalid mail format</string>
-    <string name="login_password_invalid">Password less than 8 characters</string>
+    <string name="login_password_invalid">Password less than 6 characters</string>
     <string name="login_first_name_invalid">User name is empty</string>
     <string name="login_phone_invalid">Incorrect format of phone</string>
     <string name="login_confirm_password_invalid">Passwords don\'t match</string>
     <string name="login_last_name">Last name</string>
     <string name="login_last_name_placeholder">Alekseev</string>
     <string name="login_last_name_invalid">Last name is empty</string>
+    <string name="login_success_registration">Success registration</string>
+    <string name="login_success_registration_msg">Registered successfully, please login!</string>
+    <string name="profile_edit_helper">Click here to edit profile</string>
 
     <string name="profile_logout">Logout</string>
     <string name="profile_about_application">About application</string>
@@ -71,7 +76,8 @@
     <string name="catalog_select">Select a product category</string>
 
     <string name="search">Search</string>
-    <string name="nav_address">Select address</string>
-    <string name="nav_search">Search</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="retry">Retry</string>
 
 </resources>

@@ -38,9 +38,9 @@ class StatefulLayout (
     }
 
     companion object {
-        const val LOADING = -1
-        const val ERROR = -2
-        const val CONTENT = -3
+        const val LOADING_STATE = -1
+        const val ERROR_STATE = -2
+        const val CONTENT_STATE = -3
 
     }
 }

@@ -8,4 +8,6 @@ class UserData (
     val username: String
 ) {
     val bearer get() = "bearer $token"
+
+    fun isEmpty() = token.isEmpty() || username.isEmpty()
 }

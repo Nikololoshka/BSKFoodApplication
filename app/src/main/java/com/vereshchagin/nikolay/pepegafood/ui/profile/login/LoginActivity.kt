@@ -2,7 +2,7 @@ package com.vereshchagin.nikolay.pepegafood.ui.profile.login
 
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
         initLoginTab()
         initRegistrationTab()
 
+        // статус загрузки
         viewModel.loadingState.observe(this, Observer { loadState ->
             if (loadState == null) {
                 enabledForms(true)
@@ -57,13 +58,24 @@ class LoginActivity : AppCompatActivity() {
                     showLoading(true)
                 }
                 LoadState.State.SUCCESS -> {
-                    onBackPressed()
+                    if (viewModel.isLogin) {
+                        onBackPressed()
+                    } else {
+                        registrationSuccess()
+                    }
                 }
                 LoadState.State.FAILED -> {
                     enabledForms(true)
                     showLoading(false)
 
-                    Toast.makeText(this, loadState.msg, Toast.LENGTH_LONG).show()
+                    AlertDialog.Builder(this)
+                        .setTitle(R.string.error)
+                        .setMessage(loadState.msg)
+                        .setPositiveButton(R.string.ok) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .setCancelable(true)
+                        .show()
                 }
             }
         })
@@ -198,6 +210,50 @@ class LoginActivity : AppCompatActivity() {
             binding.registrationPassword.text.toString(),
             binding.registrationConfirmPassword.text.toString()
         )
+    }
+
+    /**
+     * Вызывается, если регистрация прошла успешно.
+     */
+    private fun registrationSuccess() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.login_success_registration)
+            .setMessage(R.string.login_success_registration_msg)
+            .setPositiveButton(R.string.ok) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
+
+        enabledForms(true)
+        showLoading(false)
+
+        copyLoginData()
+        showLoginTab(true)
+        clearRegistrationForm()
+
+        binding.loginButton.requestFocus()
+        binding.tabs.check(R.id.login_tab)
+    }
+
+    /**
+     * Копирует данные для входа из формы регистрации.
+     */
+    private fun copyLoginData() {
+        binding.loginEmail.setText(binding.registrationEmail.text.toString())
+        binding.loginPassword.setText(binding.registrationPassword.text.toString())
+    }
+
+    /**
+     * Очищает форму регистрации.
+     */
+    private fun clearRegistrationForm() {
+        binding.registrationFirstName.text?.clear()
+        binding.registrationUserLastName.text?.clear()
+        binding.registrationEmail.text?.clear()
+        binding.registrationPhone.text?.clear()
+        binding.registrationPassword.text?.clear()
+        binding.registrationConfirmPassword.text?.clear()
     }
 
     /**
