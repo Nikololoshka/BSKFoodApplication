@@ -3,7 +3,7 @@ package com.vereshchagin.nikolay.pepegafood.ui.home.repository
 import android.content.Context
 import androidx.paging.LivePagedListBuilder
 import com.vereshchagin.nikolay.pepegafood.MainApplicationDatabase
-import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogItem
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogHomeItem
 import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.FavoriteBasket
 import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.ShoppingBasket
 import java.util.concurrent.Executors
@@ -37,9 +37,9 @@ class HomeRepository(context: Context) {
                         FavoriteBasket(1, "Дошираки", "25565 р")
                     )
                 )
-                val list = ArrayList<CatalogItem>()
+                val list = ArrayList<CatalogHomeItem>()
                 for (index in 0..50) {
-                    list.add(CatalogItem(index, "Category: $index"))
+                    list.add(CatalogHomeItem(index, "Category: $index"))
                 }
                 dao.insertCatalogItems(list)
             }

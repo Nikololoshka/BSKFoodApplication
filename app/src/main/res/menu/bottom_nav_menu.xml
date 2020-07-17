@@ -17,9 +17,9 @@
         android:title="@string/nav_basket" />
 
     <item
-        android:id="@+id/nav_map"
-        android:icon="@drawable/ic_menu_map"
-        android:title="@string/nav_map" />
+        android:id="@+id/nav_delivery"
+        android:icon="@drawable/ic_menu_delivery"
+        android:title="@string/nav_delivery" />
 
     <item
         android:id="@+id/nav_profile"

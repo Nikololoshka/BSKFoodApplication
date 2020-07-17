@@ -3,7 +3,7 @@
     <string name="nav_home">Главная</string>
     <string name="nav_catalog">Каталог</string>
     <string name="nav_basket">Корзина</string>
-    <string name="nav_map">Карта</string>
+    <string name="nav_delivery">Мои заказы</string>
     <string name="nav_profile">Профиль</string>
     <string name="nav_address">Выбор адреса</string>
     <string name="nav_search">Поиск</string>

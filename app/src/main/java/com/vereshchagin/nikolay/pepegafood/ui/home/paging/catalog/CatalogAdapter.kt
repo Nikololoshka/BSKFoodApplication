@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.vereshchagin.nikolay.pepegafood.R
-import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogItem
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogHomeItem
 
 /**
  * Адаптер для списка каталога на главной странице.
  */
-class CatalogAdapter : PagedListAdapter<CatalogItem, CatalogItemHolder>(
+class CatalogAdapter : PagedListAdapter<CatalogHomeItem, CatalogItemHolder>(
     CATALOG_COMPARATOR
 ) {
 
@@ -31,12 +31,12 @@ class CatalogAdapter : PagedListAdapter<CatalogItem, CatalogItemHolder>(
         /**
          * Компаратор для сравнения авто-корзин.
          */
-        val CATALOG_COMPARATOR = object : DiffUtil.ItemCallback<CatalogItem>() {
+        val CATALOG_COMPARATOR = object : DiffUtil.ItemCallback<CatalogHomeItem>() {
 
-            override fun areItemsTheSame(oldItem: CatalogItem, newItem: CatalogItem) =
+            override fun areItemsTheSame(oldItem: CatalogHomeItem, newItem: CatalogHomeItem) =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: CatalogItem, newItem: CatalogItem) =
+            override fun areContentsTheSame(oldItem: CatalogHomeItem, newItem: CatalogHomeItem) =
                 oldItem.title == newItem.title
         }
     }

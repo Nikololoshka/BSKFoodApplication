@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogItem
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogHomeItem
 import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.FavoriteBasket
 import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.ShoppingBasket
 
@@ -46,11 +46,11 @@ interface HomeDao {
      * @param baskets список корзин.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCatalogItems(baskets: List<CatalogItem>)
+    fun insertCatalogItems(baskets: List<CatalogHomeItem>)
 
     /**
      * Возвращает список (DataSource) из элементов каталога.
      */
-    @Query("SELECT * FROM catalog_item ORDER BY id ASC")
-    fun catalogItems() : DataSource.Factory<Int, CatalogItem>
+    @Query("SELECT * FROM catalog_home_item ORDER BY id ASC")
+    fun catalogItems() : DataSource.Factory<Int, CatalogHomeItem>
 }

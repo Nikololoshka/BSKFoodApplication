@@ -4,44 +4,47 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.databinding.FragmentCatalogBinding
+import com.vereshchagin.nikolay.pepegafood.ui.BaseFragment
+import com.vereshchagin.nikolay.pepegafood.ui.catalog.review.paging.CatalogItemAdapter
 
 /**
  *
  */
-class CatalogFragment : Fragment() {
+class CatalogFragment : BaseFragment<FragmentCatalogBinding>() {
 
-    private var _binding: FragmentCatalogBinding? = null
-    private val binding get() = _binding!!
+    private val viewModel by viewModels<CatalogViewModel> {
+        CatalogViewModel.Factory(activity?.application!!)
+    }
 
-    private lateinit var viewModel: CatalogViewModel
-
-
-    override fun onCreateView(
+    override fun onInflateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCatalogBinding.inflate(inflater, container, false)
+    ): FragmentCatalogBinding {
+        return FragmentCatalogBinding.inflate(inflater, container, false)
+    }
 
-        binding.catalogSearch.setOnClickListener { onSearchViewClicked() }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        return binding.root
+        binding.catalogSearch.setOnClickListener {
+            onSearchViewClicked()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CatalogViewModel::class.java)
-        
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        val adapter = CatalogItemAdapter()
+        binding.recyclerCatalog.adapter = adapter
+        viewModel.catalogItems.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
     }
 
     /**

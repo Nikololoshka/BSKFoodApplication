@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 /**
  * Объект каталога на главной странице.
  */
-@Entity(tableName = "catalog_item")
-class CatalogItem (
+@Entity(tableName = "catalog_home_item")
+class CatalogHomeItem (
     @PrimaryKey
     val id: Int,
     val title: String

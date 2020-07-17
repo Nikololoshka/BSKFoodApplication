@@ -1,4 +1,4 @@
-package com.vereshchagin.nikolay.pepegafood.ui.map.address
+package com.vereshchagin.nikolay.pepegafood.ui.home.address
 
 import android.app.Application
 import android.location.Geocoder

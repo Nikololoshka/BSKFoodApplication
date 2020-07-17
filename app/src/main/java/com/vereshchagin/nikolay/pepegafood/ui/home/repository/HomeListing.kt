@@ -2,7 +2,7 @@ package com.vereshchagin.nikolay.pepegafood.ui.home.repository
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
-import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogItem
+import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.CatalogHomeItem
 import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.FavoriteBasket
 import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.ShoppingBasket
 
@@ -12,5 +12,5 @@ import com.vereshchagin.nikolay.pepegafood.ui.home.repository.model.ShoppingBask
 class HomeListing (
     val shoppingBaskets: LiveData<PagedList<ShoppingBasket>>,
     val favoriteBaskets: LiveData<PagedList<FavoriteBasket>>,
-    val catalogItems: LiveData<PagedList<CatalogItem>>
+    val catalogItems: LiveData<PagedList<CatalogHomeItem>>
 )

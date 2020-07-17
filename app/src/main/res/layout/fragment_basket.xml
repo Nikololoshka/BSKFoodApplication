@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="visible"
+        tools:visibility="gone" >
 
         <ImageView
             android:src="@drawable/ic_common_basket"
@@ -33,6 +34,7 @@
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/basket_to_catalog"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,9 +48,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/basket_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/basket_header"

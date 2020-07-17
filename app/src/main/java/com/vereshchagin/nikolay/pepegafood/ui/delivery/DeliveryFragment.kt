@@ -1,4 +1,4 @@
-package com.vereshchagin.nikolay.pepegafood.ui.map
+package com.vereshchagin.nikolay.pepegafood.ui.delivery
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vereshchagin.nikolay.pepegafood.R
 
-class MapFragment : Fragment() {
+class DeliveryFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MapFragment()
-    }
-
-    private lateinit var viewModel: MapViewModel
+    private lateinit var viewModel: DeliveryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +21,7 @@ class MapFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DeliveryViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

@@ -3,10 +3,11 @@ package com.vereshchagin.nikolay.pepegafood.ui.profile.viewer
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.vereshchagin.nikolay.pepegafood.R
 import com.vereshchagin.nikolay.pepegafood.databinding.FragmentProfileBinding
+import com.vereshchagin.nikolay.pepegafood.settings.ApplicationPreference
 import com.vereshchagin.nikolay.pepegafood.ui.BaseStateFragment
 import com.vereshchagin.nikolay.pepegafood.ui.profile.login.LoginActivity
 import com.vereshchagin.nikolay.pepegafood.utils.LoadState
@@ -24,7 +25,12 @@ class ProfileFragment : BaseStateFragment<FragmentProfileBinding>() {
         private const val LOGIN_STATE = 2
     }
 
-    private lateinit var viewModel: ProfileViewModel
+    /**
+     * ViewModel фрагмента профиля.
+     */
+    private val viewModel by viewModels<ProfileViewModel> {
+        ProfileViewModel.Factory()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +60,8 @@ class ProfileFragment : BaseStateFragment<FragmentProfileBinding>() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_profile, menu)
 
-        val showLogout = viewModel.profileData() != null
-        menu.findItem(R.id.log_out).isVisible = showLogout
+        // val showLogout = viewModel.profileData() != null
+        // menu.findItem(R.id.log_out).isVisible = showLogout
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -79,8 +85,6 @@ class ProfileFragment : BaseStateFragment<FragmentProfileBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, ProfileViewModel.Factory())
-            .get(ProfileViewModel::class.java)
 
         binding.profileErrorRetry.setOnClickListener {
             viewModel.loadProfile()
@@ -95,7 +99,6 @@ class ProfileFragment : BaseStateFragment<FragmentProfileBinding>() {
                 }
                 LoadState.State.SUCCESS -> {
                     val user = viewModel.profileData()
-                    activity?.invalidateOptionsMenu()
 
                     if (user == null) {
                         stateful.setState(LOGIN_STATE)
@@ -105,7 +108,7 @@ class ProfileFragment : BaseStateFragment<FragmentProfileBinding>() {
                     binding.profileName.text = user.fullName()
                     binding.profilePhone.text = user.phone
                     binding.profileEmail.text = user.email
-                    binding.profileAddress.text = user.address
+                    binding.profileAddress.text = ApplicationPreference.userAddress()
 
                     stateful.setState(PROFILE_STATE)
                 }
@@ -116,5 +119,10 @@ class ProfileFragment : BaseStateFragment<FragmentProfileBinding>() {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadProfile()
     }
 }

@@ -12,9 +12,6 @@ class ProfileViewModel(
 
     val loadState = MutableLiveData(LoadState.LOADING)
 
-    init {
-        loadProfile()
-    }
 
     fun profileData() = repository.profile
 
